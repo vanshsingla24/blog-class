@@ -1,0 +1,98 @@
+{% extends 'navbar.html' %}
+
+{% block title %}Welcome to My Blog{% endblock %}
+
+{% block content %}
+<style>
+    /* Container styling */
+    .container {
+        text-align: center;
+        margin-top: 50px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    /* Feature box styling */
+    .feature-box {
+        width: 300px;
+        margin: 20px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .feature-box:hover {
+        transform: scale(1.05);
+    }
+
+    .feature-box h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .feature-box p {
+        font-size: 16px;
+    }
+
+    /* Unique colors for feature boxes */
+    .feature-box:nth-child(odd) {
+        background-color: #ffbdbd; /* Light red */
+    }
+
+    .feature-box:nth-child(even) {
+        background-color: #bde4ff; /* Light blue */
+    }
+
+    /* Button styling */
+    .explore-button {
+        margin-top: 30px;
+        padding: 10px 20px;
+        font-size: 18px;
+        border: none;
+        border-radius: 20px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        text-decoration: none; /* Remove default link underline */
+    }
+
+    .explore-button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="container">
+    <div class="feature-box">
+        <h3>Blog Beautifully</h3>
+        <p>Express yourself creatively with beautiful blog posts.</p>
+    </div>
+    <div class="feature-box">
+        <h3>Share Anything Simply</h3>
+        <p>Share your thoughts, experiences, and ideas effortlessly.</p>
+    </div>
+    <div class="feature-box">
+        <h3>Connect with Readers</h3>
+        <p>Engage with your audience and build a community around your blog.</p>
+    </div>
+    <div class="feature-box">
+        <h3>Customize Your Space</h3>
+        <p>Personalize your blog with custom themes and layouts.</p>
+    </div>
+    <div class="feature-box">
+        <h3>Discover New Ideas</h3>
+        <p>Explore a world of knowledge and inspiration through diverse content.</p>
+    </div>
+    <div class="feature-box">
+        <h3>Grow Your Audience</h3>
+        <p>Reach a wider audience and build lasting connections with your readers.</p>
+    </div>
+</div>
+
+<div class="container">
+    <a href="{% url 'blogs' %}" class="explore-button">Explore More Blogs</a>
+</div>
+{% endblock %}

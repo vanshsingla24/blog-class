@@ -1,0 +1,190 @@
+{% extends 'navbar.html' %}
+
+{% block title %}Latest Blog Posts{% endblock %}
+
+{% block content %}
+<style>
+    /* Container styling */
+    .container {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    /* Table styling */
+    .table-responsive {
+        overflow-x: auto;
+    }
+
+    .table {
+        width: 100%;
+        margin-bottom: 1rem;
+        color: #212529;
+    }
+
+    .table th,
+    .table td {
+        padding: 1rem; /* Increased padding for better spacing */
+        vertical-align: middle;
+        border-top: 1px solid #dee2e6;
+    }
+
+    .table thead th {
+        vertical-align: middle;
+        border-bottom: 2px solid #dee2e6;
+    }
+
+    .table tbody + tbody {
+        border-top: 2px solid #dee2e6;
+    }
+
+    /* Pagination styling */
+    .pagination {
+        justify-content: center;
+        margin-top: 2rem;
+    }
+
+    .pagination li.page-item {
+        display: inline-block;
+    }
+
+    .pagination li.page-item a.page-link,
+    .pagination li.page-item span.page-link {
+        position: relative;
+        display: block;
+        padding: 0.5rem 0.75rem;
+        margin-left: -1px;
+        line-height: 1.25;
+        color: #007bff;
+        background-color: #fff;
+        border: 1px solid #dee2e6;
+    }
+
+    .pagination li.page-item.disabled a.page-link {
+        color: #6c757d;
+        pointer-events: none;
+        cursor: auto;
+        background-color: #fff;
+        border-color: #dee2e6;
+    }
+
+    .pagination li.page-item.active a.page-link {
+        z-index: 2;
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    /* Button styling */
+    .btn {
+        font-weight: 500;
+        padding: 0.75rem 1.5rem; /* Increased padding for better appearance */
+        font-size: 1rem;
+        border-radius: 0.25rem;
+        transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+
+    .btn-primary {
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:hover {
+        color: #fff;
+        background-color: #0069d9;
+        border-color: #0062cc;
+    }
+
+    .btn-primary:focus,
+    .btn-primary.focus {
+        color: #fff;
+        background-color: #0069d9;
+        border-color: #0062cc;
+        box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+    }
+
+    .btn-primary.disabled,
+    .btn-primary:disabled {
+        color: #fff;
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+
+    .btn-primary:not(:disabled):not(.disabled):active,
+    .btn-primary:not(:disabled):not(.disabled).active,
+    .show>.btn-primary.dropdown-toggle {
+        color: #fff;
+        background-color: #0062cc;
+        border-color: #005cbf;
+    }
+
+    .btn-primary:not(:disabled):not(.disabled):active:focus,
+    .btn-primary:not(:disabled):not(.disabled).active:focus,
+    .show>.btn-primary.dropdown-toggle:focus {
+        box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+    }
+</style>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Latest Blog Posts</h1>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Created Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for post in page_obj %}
+                <tr>
+                    <td>{{ post.title }}</td>
+                    <td>{{ post.user.username }}</td>
+                    <td>{{ post.created_at }}</td>
+                    <td>
+                        <a href="{% url 'view_blogs' post.id %}" class="btn btn-primary btn-sm">
+                            <i class="fas fa-eye"></i> View
+                        </a>
+                        
+                        
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page=1">&laquo; First</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+            </li>
+            {% endif %}
+            {% for page in page_obj.paginator.page_range %}
+            <li class="page-item {% if page_obj.number == page %}active{% endif %}">
+                <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+            </li>
+            {% endfor %}
+            {% if page_obj.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-4">
+            <p>To create a blog, please <a href="{% url 'signup' %}">sign up</a>.</p>
+            <p>If you already have an account, <a href="{% url 'login' %}">log in here</a>.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
