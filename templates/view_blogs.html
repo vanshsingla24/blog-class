@@ -137,7 +137,7 @@
     <!-- View all comments -->
     <div class="comments">
         <h3>All Comments</h3>
-        {% for comment in blog.comments.all %}
+        {% for comment in comments %}
         <div class="comment">
             <p class="comment-author">Author: {{ comment.user.username }}</p>
             <p>{{ comment.content }}</p>

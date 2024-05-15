@@ -106,6 +106,9 @@ class BlogsView(ListView):
     context_object_name = 'blogs'
     paginate_by = 5
 
+    def get_queryset(self):
+        queryset = Blog.objects.select_related('user')       
+        return queryset
 
 class ViewBlogView(SuccessMessageMixin, DetailView):
     """View Blog View after log in"""
@@ -140,9 +143,13 @@ class ViewBlogsView(DetailView):
     model = Blog
     template_name = 'view_blogs.html' 
 
+    def get_queryset(self):
+        queryset = Blog.objects.select_related('user')
+        return queryset
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['comments'] = self.object.comments.all() 
+        context['comments'] = self.object.comments.select_related('user')
         return context
 
 
