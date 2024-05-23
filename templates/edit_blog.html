@@ -1,0 +1,72 @@
+{% extends 'navbar.html' %}
+{% block title %}Edit Blog - My Blog{% endblock %}
+
+{% block content %}
+<style>
+    /* Custom CSS for styling */
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+    }
+
+    .blog-post {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+
+    .blog-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .blog-author {
+        font-style: italic;
+        color: #666;
+        margin-bottom: 10px;
+    }
+
+    .blog-date {
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .blog-content {
+        line-height: 1.6;
+        width: 100%; /* Set width to 100% to make it expand horizontally */
+        height: 400px; /* Set a specific height */
+    }
+
+    /* Button styling */
+    .submit-btn {
+        margin-top: 20px; /* Increase margin top for spacing */
+        background-color: #007bff; /* Add background color */
+        color: #fff; /* Change text color to white */
+    }
+</style>
+
+<div class="container">
+    <div class="blog-post">
+        <form method="post" id="edit-blog-form">
+            {% csrf_token %}
+            <input type="text" name="title" value="{{ blog_post.title }}" class="form-control mb-3" placeholder="Title" required>
+            <p class="blog-author">Author: {{ blog_post.user.username }}</p>
+            <p class="blog-date">Created Date: {{ blog_post.created_at }}</p>
+            <textarea name="content" class="form-control blog-content" rows="10" placeholder="Content" required>{{ blog_post.content }}</textarea>
+            <button type="submit" class="btn btn-info submit-btn">Save Changes</button>
+        </form>
+    </div>
+    <a href="{% url 'home' %}" class="btn btn-success back-btn">&laquo; Back</a>
+</div>
+
+<script>
+    // Submit form when Save Changes button is clicked
+    document.querySelector('.submit-btn').addEventListener('click', function() {
+        document.getElementById('edit-blog-form').submit();
+        alert('Changes saved successfully!');
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,73 @@
+{% extends 'navbar.html'%}
+{% block title %}Create Blog - My Blog{% endblock %}
+
+{% block content %}
+<style>
+    /* Custom CSS for styling */
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+    }
+
+    .card {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    .card-body {
+        padding: 30px;
+    }
+
+    .card-title {
+        margin-top: 0;
+        margin-bottom: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    textarea {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: #007bff;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title mb-4">Create a New Blog Post</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{form.as_p}}
+              
+                <button type="submit" class="btn btn-primary">Create Post</button> 
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
